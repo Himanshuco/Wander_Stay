@@ -1,0 +1,25 @@
+{
+  "name": "wander_stay",
+  "version": "1.0.0",
+  "description": "My major project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Himanshuco/Wander_Stay.git"
+  },
+  "keywords": [],
+  "author": "Himanshu Kumar Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Himanshuco/Wander_Stay/issues"
+  },
+  "homepage": "https://github.com/Himanshuco/Wander_Stay#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongoose": "^8.13.2"
+  }
+}
