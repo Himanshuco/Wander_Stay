@@ -9,9 +9,11 @@ const listingSchema = new Schema ({
     } ,
     description : String,
     image :{
-        type :String,
-        default : "https://unsplash.com/photos/a-living-room-filled-with-furniture-and-a-fire-place-GWdZpXUPMs0",
-        set : (v)=> v==="" ? "https://unsplash.com/photos/a-living-room-filled-with-furniture-and-a-fire-place-GWdZpXUPMs0" : v,
+        // type :String,
+        // default : "https://unsplash.com/photos/a-living-room-filled-with-furniture-and-a-fire-place-GWdZpXUPMs0",
+        // set : (v)=> v==="" ? "https://unsplash.com/photos/a-living-room-filled-with-furniture-and-a-fire-place-GWdZpXUPMs0" : v,
+        filename: String,
+        url: String
     } ,
     price :Number,
     location : String,
