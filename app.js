@@ -42,11 +42,37 @@ app.get("/listings/new",(req,res)=>{
     res.render("listings/new.ejs");
 });
 
-app.get("/listings/:id", async(req,res)=>{
-    let {id} = req.params;
-    const listing = await Listing.findById(id);
-    res.render("listings/show.ejs",{listing});
+app.get("/listings/:id", async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const listing = await Listing.findById(id);
+
+        if (!listing) {
+            return res.status(404).send("Listing not found");
+        }
+
+        if (!listing.image || !listing.image.url) {
+            listing.image = {
+                url: "https://plus.unsplash.com/premium_photo-1666739387996-2a45b0a5dab7?q=80&w=1953&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                filename: "default-image"
+            };
+        }
+
+        res.render("listings/show.ejs", { listing });
+
+    } catch (err) {
+        console.error("Error fetching listing:", err);
+        res.status(500).send("Internal Server Error");
+    }
 });
+
+
+// app.get("/listings/:id", async(req,res)=>{
+//     let {id} = req.params;
+//     const listing = await Listing.findById(id);
+//     res.render("listings/show.ejs",{listing});
+// });
 
 app.post("/listings",async(req,res)=>{
     // let{title , description , image ,  price , country , location} = req.body;
