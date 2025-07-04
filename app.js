@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV != "production"){
+    require("dotenv").config();
+}
+
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
@@ -5,6 +9,7 @@ const methodOverride = require("method-override");
 const ejsMate  = require("ejs-mate");
 const ExpressError  = require("./utils/ExpressError.js");
 const session  =  require("express-session");
+const MongoStore = require('connect-mongo');
 const flash = require("connect-flash");
 const UserRouter = require("./routes/user.js"); //UserRouter
 const listings = require("./routes/listing.js"); //ListingRouter
@@ -15,11 +20,13 @@ const User = require("./models/user.js");
 
 
 const app = express();
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderstay";
+// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderstay";
+
+dbUrl = process.env.ATLASDB_URL;
 
 // Connect to MongoDB
 async function main() {
-    await mongoose.connect(MONGO_URL);
+    await mongoose.connect(dbUrl);
 }
 main()
     .then(() => {
@@ -27,7 +34,7 @@ main()
     })
     .catch((err) => { 
         console.log("Connection error:", err);
-    });
+});
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
@@ -36,7 +43,21 @@ app.use(methodOverride("_method"));
 app.engine("ejs",ejsMate);
 app.use(express.static(path.join(__dirname,"public")));
 
+const store = MongoStore.create({
+    mongoUrl : dbUrl,
+    crypto : {
+        secret : "sessionsecretkey",
+
+    },
+    touchAfter : 24 * 3600,
+});
+
+store.on("error" ,()=>{
+    console.log("ERROR in MONGO SESSION STORE", err);
+})
+
 const sessionOption = {
+    store,
     secret : "sessionsecretkey",
     resave: false,
     saveUninitialized : true,
@@ -46,6 +67,8 @@ const sessionOption = {
         httpOnly : true
     }
 };
+
+
 
 // Basic route
 // app.get("/", (req, res) => {

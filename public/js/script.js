@@ -16,3 +16,21 @@
     }, false)
   })
 })()
+
+window.addEventListener("DOMContentLoaded", () => {
+    const darkMode = localStorage.getItem("darkMode");
+    if (darkMode === "enabled") {
+      document.body.classList.add("dark-mode");
+      const toggleBtn = document.getElementById("darkToggle");
+      if (toggleBtn) toggleBtn.textContent = "☀️ Light Mode";
+    }
+});
+
+  // Toggle and persist dark mode
+  document.addEventListener("click", function (e) {
+    if (e.target && e.target.id === "darkToggle") {
+      const isDark = document.body.classList.toggle("dark-mode");
+      localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
+      e.target.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+    }
+});
