@@ -23,6 +23,7 @@ const app = express();
 // const MONGO_URL = "mongodb://127.0.0.1:27017/wanderstay";
 
 dbUrl = process.env.ATLASDB_URL;
+secret = process.env.SECRET;
 
 // Connect to MongoDB
 async function main() {
