@@ -1,27 +1,29 @@
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
   <div class="container-fluid">
 
-    <!-- Brand/Logo -->
+    <!-- Logo -->
     <a class="navbar-brand" href="/">
       <img src="/logof.png" alt="WanderStay Logo" />
     </a>
 
-    <!-- Toggler for smaller screens -->
+    <!-- Toggler (Hamburger) -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
       data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Navbar Content -->
+    <!-- Navbar Menu -->
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <!-- Left Side Links -->
       <div class="navbar-nav me-auto">
         <a class="nav-link" href="/listings">All Listings</a>
         <a class="nav-link" href="/listings/new">Add New Listing</a>
       </div>
 
-      <!-- Right-aligned Auth/User Dropdown -->
-      <div class="navbar-nav ms-auto">
+      <!-- Right Side: User Auth & Dark Mode -->
+      <div class="navbar-nav ms-auto align-items-center">
         <% if (typeof currUser === 'undefined' || !currUser) { %>
           <a class="nav-link" href="/signup">Signup</a>
           <a class="nav-link" href="/login">Login</a>
@@ -37,10 +39,10 @@
             </ul>
           </div>
         <% } %>
+
+        <!-- Dark Mode Toggle Button -->
+        <button id="darkToggle" class="btn btn-outline-dark ms-3 mt-2 mt-lg-0">🌙 Dark Mode</button>
       </div>
-      
-      <!-- Dark Mode Toggle -->
-      <button id="darkToggle" class="btn btn-outline-dark ms-2">🌙 Dark Mode</button>
     </div>
   </div>
 </nav>
