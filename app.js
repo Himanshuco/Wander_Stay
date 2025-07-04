@@ -17,6 +17,9 @@ const reviews = require("./routes/review.js"); //ReviewRouter
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const bookingRoutes = require('./routes/bookings');
+
+
 
 
 const app = express();
@@ -106,6 +109,7 @@ app.use((req, res, next) => {
 app.use("/", UserRouter); 
 app.use("/listings", listings);
 app.use("/listings/:id/reviews",reviews);
+app.use('/', bookingRoutes); // or app.use('/bookings', bookingRoutes);
 
 
 app.all(/.*/, (req, res, next) => {

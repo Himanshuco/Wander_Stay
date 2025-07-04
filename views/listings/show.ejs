@@ -31,7 +31,7 @@
 
       <!-- Review Form -->
       <div class="card mt-5">
-        <% if (currentUser && currentUser._id.toString() !== listing.owner._id.toString()) { %>
+        <% if (typeof currUser === 'undefined' || currentUser && currentUser._id.toString() !== listing.owner._id.toString()) { %>
             <div class="d-grid gap-2 mt-4">
               <a href="/listings/<%= listing._id %>/book" class="btn btn-danger btn-lg">Book Now</a>
             </div>
