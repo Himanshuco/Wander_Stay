@@ -4,31 +4,46 @@
 
     <!-- Logo -->
     <a class="navbar-brand" href="/">
-      <img src="/logof.png" alt="WanderStay Logo" />
+      <img src="/logof.png" alt="WanderStay Logo" class="d-inline-block align-text-top" />
     </a>
 
-    <!-- Toggler (Hamburger) -->
+    <!-- Toggler Button -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
       data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Navbar Menu -->
+    <!-- Collapsible Content -->
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <!-- Left Side Links -->
-      <div class="navbar-nav me-auto">
-        <a class="nav-link" href="/listings">All Listings</a>
-        <a class="nav-link" href="/listings/new">Add New Listing</a>
-      </div>
 
-      <!-- Right Side: User Auth & Dark Mode -->
-      <div class="navbar-nav ms-auto align-items-center">
-        <% if (typeof currUser === 'undefined' || !currUser) { %>
-          <a class="nav-link" href="/signup">Signup</a>
-          <a class="nav-link" href="/login">Login</a>
+      <!-- Left-side Links -->
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/listings">All Listings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/listings/new">Add New Listing</a>
+        </li>
+      </ul>
+
+      <!-- Centered Search Bar -->
+      <form class="d-flex mx-auto my-2 my-lg-0 input-group shadow-sm" style="max-width: 400px;">
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-dark" type="submit">Search</button>
+      </form>
+
+      <!-- Right-side Auth & Dark Mode -->
+      <ul class="navbar-nav ms-auto align-items-center">
+        <% if (!currUser) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/signup">Signup</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
         <% } else { %>
-          <div class="nav-item dropdown">
+          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
               <i class="bi bi-person-circle"></i> <%= currUser.username %>
@@ -37,12 +52,15 @@
               <li><a class="dropdown-item" href="/profile">Profile</a></li>
               <li><a class="dropdown-item" href="/logout">Logout</a></li>
             </ul>
-          </div>
+          </li>
         <% } %>
 
-        <!-- Dark Mode Toggle Button -->
-        <button id="darkToggle" class="btn btn-outline-dark ms-3 mt-2 mt-lg-0">🌙 Dark Mode</button>
-      </div>
+        <!-- Dark Mode Toggle -->
+        <li class="nav-item">
+          <button id="darkToggle" class="btn btn-outline-dark ms-lg-3 mt-2 mt-lg-0">🌙 Dark Mode</button>
+        </li>
+      </ul>
+
     </div>
   </div>
 </nav>
