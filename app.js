@@ -52,9 +52,9 @@ const store = MongoStore.create({
     touchAfter : 24 * 3600,
 });
 
-store.on("error" ,()=>{
-    console.log("ERROR in MONGO SESSION STORE", err);
-})
+store.on("error", (err) => {
+  console.log("ERROR in MONGO SESSION STORE", err);
+});
 
 const sessionOption = {
     store,
@@ -62,13 +62,11 @@ const sessionOption = {
     resave: false,
     saveUninitialized : true,
     cookie: {
-        expires : Date.now()+1000*60*60*24*7,  //Milisecond -> 7 days - 24 hours - 60 minutes - 60 seconds - 1000 miliseconds 
-        maxAge : 100*60*60*24*3 ,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),  //Milisecond -> 7 days - 24 hours - 60 minutes - 60 seconds - 1000 miliseconds 
+        maxAge: 1000 * 60 * 60 * 24 * 3,  // 3 days
         httpOnly : true
     }
 };
-
-
 
 // Basic route
 // app.get("/", (req, res) => {
@@ -89,7 +87,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res ,next)=>{
     res.locals.success =  req.flash("success");
     res.locals.error = req.flash("error");
-    res.locals.currUser = req.user;
+    res.locals.currUser = req.user || null;
     next();
 });
 
