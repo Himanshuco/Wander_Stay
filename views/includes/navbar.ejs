@@ -22,6 +22,22 @@
 
       <!-- Right-aligned Auth/User Dropdown -->
       <div class="navbar-nav ms-auto">
+        <% if (typeof currUser === 'undefined' || !currUser) { %>
+          <a class="nav-link" href="/signup">Signup</a>
+          <a class="nav-link" href="/login">Login</a>
+        <% } else { %>
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="bi bi-person-circle"></i> <%= currUser.username %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="/profile">Profile</a></li>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
+          </div>
+
+        <% } %>
       </div>
       <button id="darkToggle" class="btn btn-outline-dark">🌙 Dark Mode</button>
     </div>
