@@ -31,17 +31,6 @@
 
       <!-- Review Form -->
       <div class="card mt-5">
-        <% if (typeof currUser === 'undefined' || currentUser && currentUser._id.toString() !== listing.owner._id.toString()) { %>
-            <div class="d-grid gap-2 mt-4">
-              <a href="/listings/<%= listing._id %>/book" class="btn btn-danger btn-lg">Book Now</a>
-            </div>
-          <% } else if (!currentUser) { %>
-            <div class="alert alert-warning mt-4">
-              <a href="/login">Log in</a> to book this listing.
-            </div>
-        <% } %>
-
-
         <div class="card-header bg-dark text-white">
           Leave a Review
         </div>
