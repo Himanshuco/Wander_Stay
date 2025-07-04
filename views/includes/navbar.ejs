@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md bg-body-tertiary border-bottom sticky-top">
+<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
   <div class="container-fluid">
 
     <!-- Brand/Logo -->
@@ -15,7 +15,7 @@
 
     <!-- Navbar Content -->
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
+      <div class="navbar-nav me-auto">
         <a class="nav-link" href="/listings">All Listings</a>
         <a class="nav-link" href="/listings/new">Add New Listing</a>
       </div>
@@ -36,10 +36,11 @@
               <li><a class="dropdown-item" href="/logout">Logout</a></li>
             </ul>
           </div>
-
         <% } %>
       </div>
-      <button id="darkToggle" class="btn btn-outline-dark">🌙 Dark Mode</button>
+      
+      <!-- Dark Mode Toggle -->
+      <button id="darkToggle" class="btn btn-outline-dark ms-2">🌙 Dark Mode</button>
     </div>
   </div>
 </nav>

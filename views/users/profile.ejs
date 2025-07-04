@@ -1,61 +1,63 @@
 <% layout("/layouts/boilerplate") %>
 
 <div class="mb-5">
-  <h2><strong><%= user.username %></strong>'s Profile</h2>
+  <h2 class="text-center text-lg-start"><strong><%= user.username %></strong>'s Profile</h2>
   
   <!-- User info -->
-  <div class="d-flex align-items-center gap-3 mb-3">
+  <div class="d-flex flex-column flex-md-row align-items-center gap-3 mb-4">
     <!-- Placeholder Profile Picture -->
     <div style="width: 80px; height: 80px; background: #ddd; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; color: #666;">
       <%= user.username.charAt(0).toUpperCase() %>
     </div>
 
-    <div>
+    <div class="text-center text-md-start">
       <p class="mb-1"><strong>Email:</strong> <%= user.email || "Not Provided" %></p>
       <p class="mb-0"><small>
-      Joined on 
-      <% if (user.createdAt && !isNaN(new Date(user.createdAt))) { %>
-        <%= new Date(user.createdAt).toLocaleDateString() %>
-      <% } else { %>
-        Unknown
-      <% } %>
-    </small></p>
-</div>
-
-    <!-- <div class="ms-auto">
-      <a href="/users/<%= user._id %>/edit" class="btn btn-outline-primary btn-sm">Edit Profile</a>
-    </div> -->
+        Joined on 
+        <% if (user.createdAt && !isNaN(new Date(user.createdAt))) { %>
+          <%= new Date(user.createdAt).toLocaleDateString() %>
+        <% } else { %>
+          Unknown
+        <% } %>
+      </small></p>
+    </div>
   </div>
 
   <!-- Stats summary -->
   <div class="mb-4">
-    <h5>Profile Stats</h5>
-    <ul class="list-inline">
-      <li class="list-inline-item me-4">
-        <strong><%= listings.length %></strong> Listing<%= listings.length !== 1 ? 's' : '' %>
-      </li>
-      <li class="list-inline-item me-4">
-        <strong><%= listings.reduce((acc, l) => acc + (l.reviews ? l.reviews.length : 0), 0) %></strong> Review<%= listings.reduce((acc, l) => acc + (l.reviews ? l.reviews.length : 0), 0) !== 1 ? 's' : '' %>
-      </li>
-      <li class="list-inline-item">
-        <strong>
+    <h5 class="text-center text-lg-start">Profile Stats</h5>
+    <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-4">
+      <div class="text-center">
+        <strong class="d-block fs-4"><%= listings.length %></strong>
+        <small>Listing<%= listings.length !== 1 ? 's' : '' %></small>
+      </div>
+      <div class="text-center">
+        <strong class="d-block fs-4"><%= listings.reduce((acc, l) => acc + (l.reviews ? l.reviews.length : 0), 0) %></strong>
+        <small>Review<%= listings.reduce((acc, l) => acc + (l.reviews ? l.reviews.length : 0), 0) !== 1 ? 's' : '' %></small>
+      </div>
+      <div class="text-center">
+        <strong class="d-block fs-4">
           <% 
             const allRatings = listings.flatMap(l => l.reviews ? l.reviews.map(r => r.rating) : []);
             const avgRating = allRatings.length ? (allRatings.reduce((a,b) => a + b, 0) / allRatings.length).toFixed(1) : "N/A";
           %>
           <%= avgRating %>
-        </strong> Avg. Rating
-      </li>
-    </ul>
+        </strong>
+        <small>Avg. Rating</small>
+      </div>
+    </div>
   </div>
 </div>
 
-<h3 class="mb-3">My Listings</h3>
+<h3 class="mb-3 text-center text-lg-start">My Listings</h3>
 
 <% if (listings.length === 0) { %>
-  <p>You don’t have any listings yet. <a href="/listings/new" class="btn btn-primary btn-sm ms-2">Create your first listing</a></p>
+  <div class="text-center">
+    <p>You don't have any listings yet.</p>
+    <a href="/listings/new" class="btn btn-primary">Create your first listing</a>
+  </div>
 <% } else { %>
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3 g-md-4">
     <% listings.forEach(listing => { %>
       <div class="col d-flex">
         <div class="card shadow-sm flex-fill">
@@ -66,26 +68,35 @@
           <% } %>
 
           <div class="card-body d-flex flex-column">
-            <h5 class="card-title">
+            <h6 class="card-title">
               <a href="/listings/<%= listing._id %>" class="text-decoration-none"><%= listing.title %></a>
-            </h5>
-            <p class="card-text flex-grow-1" style="min-height: 70px;">
+            </h6>
+            <p class="card-text flex-grow-1" style="min-height: 60px;">
               <%= listing.description.length > 100 ? listing.description.substring(0, 100) + '…' : listing.description %>
             </p>
             <p class="mb-2 text-muted"><small><%= listing.location %>, <%= listing.country %></small></p>
 
-            <h6>Reviews:</h6>
-            <% if (!listing.reviews || listing.reviews.length === 0) { %>
-              <p><em>No reviews yet.</em></p>
-            <% } else { %>
-              <ul class="list-unstyled mb-3" style="max-height: 100px; overflow-y: auto;">
-                <% listing.reviews.forEach(rev => { %>
-                  <li><strong><%= rev.author?.username || 'Unknown' %>:</strong> <%= rev.content %> (<%= rev.rating %>/5)</li>
-                <% }) %>
-              </ul>
-            <% } %>
+            <div class="mb-2">
+              <small class="fw-bold">Reviews:</small>
+              <% if (!listing.reviews || listing.reviews.length === 0) { %>
+                <p class="mb-0"><em>No reviews yet.</em></p>
+              <% } else { %>
+                <div class="small" style="max-height: 80px; overflow-y: auto;">
+                  <% listing.reviews.slice(0, 2).forEach(rev => { %>
+                    <div class="mb-1">
+                      <strong><%= rev.author?.username || 'Unknown' %>:</strong> 
+                      <%= rev.content.length > 50 ? rev.content.substring(0, 50) + '…' : rev.content %> 
+                      (<%= rev.rating %>/5)
+                    </div>
+                  <% }) %>
+                  <% if (listing.reviews.length > 2) { %>
+                    <small class="text-muted">+<%= listing.reviews.length - 2 %> more</small>
+                  <% } %>
+                </div>
+              <% } %>
+            </div>
 
-            <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary mt-auto">Update</a>
+            <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary btn-sm mt-auto">Update</a>
           </div>
         </div>
       </div>
