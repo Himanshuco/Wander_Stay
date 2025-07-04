@@ -1,44 +1,94 @@
 <% layout("/layouts/boilerplate") %>
-<div class="container mt-5">
+
+<div class="mb-5">
   <h2><strong><%= user.username %></strong>'s Profile</h2>
-
-  <h3 class="mt-4">My Listings</h3>
-  <% if (listings.length === 0) { %>
-    <p>No listings yet.</p>
-  <% } else { %>
-    <div class="row">
-        <% listings.forEach(listing => { %>
-            <div class="col-md-4 mb-4 d-flex align-items-stretch">
-            <div class="card shadow-sm w-100 d-flex flex-column">
-                <% if(listing.image && listing.image.url) { %>
-                <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
-                <% } else { %>
-                <img src="https://via.placeholder.com/400x200?text=No+Image" class="card-img-top" alt="No image available">
-                <% } %>
-                <div class="card-body d-flex flex-column">
-                <h5 class="card-title"><a href="/listings/<%= listing._id %>"><%= listing.title %></a></h5>
-                <p class="card-text flex-grow-1"><%= listing.description.substring(0, 100) %>…</p>
-                <small class="text-muted"><%= listing.location %>, <%= listing.country %></small>
-
-                <h6 class="mt-3">Reviews:</h6>
-                <% if (listing.reviews.length === 0) { %>
-                    <p><em>No reviews yet.</em></p>
-                <% } else { %>
-                    <ul class="mb-3">
-                    <% listing.reviews.forEach(rev => { %>
-                        <li><strong><%= rev.author?.username || 'Unknown' %>:</strong> <%= rev.content %> (<%= rev.rating %>/5)</li>
-                    <% }) %>
-                    </ul>
-                <% } %>
-                <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary mt-auto">Update</a>
-             </div>
-        </div>
+  
+  <!-- User info -->
+  <div class="d-flex align-items-center gap-3 mb-3">
+    <!-- Placeholder Profile Picture -->
+    <div style="width: 80px; height: 80px; background: #ddd; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; color: #666;">
+      <%= user.username.charAt(0).toUpperCase() %>
     </div>
-  <% }); %>
+
+    <div>
+      <p class="mb-1"><strong>Email:</strong> <%= user.email || "Not Provided" %></p>
+      <p class="mb-0"><small>
+      Joined on 
+      <% if (user.createdAt && !isNaN(new Date(user.createdAt))) { %>
+        <%= new Date(user.createdAt).toLocaleDateString() %>
+      <% } else { %>
+        Unknown
+      <% } %>
+    </small></p>
 </div>
 
+    <!-- <div class="ms-auto">
+      <a href="/users/<%= user._id %>/edit" class="btn btn-outline-primary btn-sm">Edit Profile</a>
+    </div> -->
+  </div>
 
-  <% } %>
-
+  <!-- Stats summary -->
+  <div class="mb-4">
+    <h5>Profile Stats</h5>
+    <ul class="list-inline">
+      <li class="list-inline-item me-4">
+        <strong><%= listings.length %></strong> Listing<%= listings.length !== 1 ? 's' : '' %>
+      </li>
+      <li class="list-inline-item me-4">
+        <strong><%= listings.reduce((acc, l) => acc + (l.reviews ? l.reviews.length : 0), 0) %></strong> Review<%= listings.reduce((acc, l) => acc + (l.reviews ? l.reviews.length : 0), 0) !== 1 ? 's' : '' %>
+      </li>
+      <li class="list-inline-item">
+        <strong>
+          <% 
+            const allRatings = listings.flatMap(l => l.reviews ? l.reviews.map(r => r.rating) : []);
+            const avgRating = allRatings.length ? (allRatings.reduce((a,b) => a + b, 0) / allRatings.length).toFixed(1) : "N/A";
+          %>
+          <%= avgRating %>
+        </strong> Avg. Rating
+      </li>
+    </ul>
+  </div>
 </div>
 
+<h3 class="mb-3">My Listings</h3>
+
+<% if (listings.length === 0) { %>
+  <p>You don’t have any listings yet. <a href="/listings/new" class="btn btn-primary btn-sm ms-2">Create your first listing</a></p>
+<% } else { %>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <% listings.forEach(listing => { %>
+      <div class="col d-flex">
+        <div class="card shadow-sm flex-fill">
+          <% if (listing.image && listing.image.url) { %>
+            <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>" style="height: 200px; object-fit: cover;">
+          <% } else { %>
+            <img src="https://via.placeholder.com/400x200?text=No+Image" class="card-img-top" alt="No image available" style="height: 200px; object-fit: cover;">
+          <% } %>
+
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">
+              <a href="/listings/<%= listing._id %>" class="text-decoration-none"><%= listing.title %></a>
+            </h5>
+            <p class="card-text flex-grow-1" style="min-height: 70px;">
+              <%= listing.description.length > 100 ? listing.description.substring(0, 100) + '…' : listing.description %>
+            </p>
+            <p class="mb-2 text-muted"><small><%= listing.location %>, <%= listing.country %></small></p>
+
+            <h6>Reviews:</h6>
+            <% if (!listing.reviews || listing.reviews.length === 0) { %>
+              <p><em>No reviews yet.</em></p>
+            <% } else { %>
+              <ul class="list-unstyled mb-3" style="max-height: 100px; overflow-y: auto;">
+                <% listing.reviews.forEach(rev => { %>
+                  <li><strong><%= rev.author?.username || 'Unknown' %>:</strong> <%= rev.content %> (<%= rev.rating %>/5)</li>
+                <% }) %>
+              </ul>
+            <% } %>
+
+            <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary mt-auto">Update</a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+<% } %>

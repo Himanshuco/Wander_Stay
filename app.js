@@ -48,9 +48,9 @@ const sessionOption = {
 };
 
 // Basic route
-app.get("/", (req, res) => {
-    res.send("I am working");
-});
+// app.get("/", (req, res) => {
+//     res.send("I am working");
+// });
 
 app.use(session(sessionOption));
 app.use(flash());
