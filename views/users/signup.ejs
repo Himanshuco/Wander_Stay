@@ -1,38 +1,47 @@
 <% layout("/layouts/boilerplate") %>
 
-<div class="row">
-    <div class="col-8 offset-2">
-        <form action="/signup" method="post" novalidate>
-            <h2 class=" mb-4">Sign Up</h2>
+<div class="row mt-4 mt-md-5">
+    <div class="col-12 col-md-8 col-lg-6 col-xl-4 offset-md-2 offset-lg-3 offset-xl-4">
+        <div class="card shadow-sm">
+            <div class="card-body p-4 p-md-5">
+                <h2 class="text-center mb-4">Sign Up</h2>
+                
+                <form action="/signup" method="post" novalidate>
+                    <!-- Username Field -->
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input id="username" name="username" type="text" class="form-control" required />
+                        <div class="valid-feedback">Nice username</div>
+                        <div class="invalid-feedback">Please enter a valid username.</div>
+                    </div>
 
-            <!-- Username Field -->
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input id="username" name="username" type="text" class="form-control" required />
-                <div class="valid-feedback">Nice username</div>
-                <div class="invalid-feedback">Please enter a valid username.</div>
-            </div>
+                    <!-- Email Field -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input id="email" name="email" type="email" class="form-control" required />
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                    </div>
 
-            <!-- Email Field -->
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input id="email" name="email" type="email" class="form-control" required />
-                <div class="valid-feedback">Looks good!</div>
-                <div class="invalid-feedback">Please enter a valid email address.</div>
-            </div>
+                    <!-- Password Field -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input id="password" name="password" type="password" class="form-control" required />
+                        <div class="valid-feedback">Strong password!</div>
+                        <div class="invalid-feedback">Please enter a password.</div>
+                    </div>
 
-            <!-- Password Field -->
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input id="password" name="password" type="password" class="form-control" required />
-                <div class="valid-feedback">Strong password!</div>
-                <div class="invalid-feedback">Please enter a password.</div>
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+                    </div>
+                    
+                    <!-- Optional Links -->
+                    <div class="text-center mt-4">
+                        <small>Already have an account? <a href="/login">Log in</a></small>
+                    </div>
+                </form>
             </div>
-
-            <!-- Submit Button -->
-            <div class="mb-3 text-center">
-                <button type="submit" class="btn btn-primary">Sign Up</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
