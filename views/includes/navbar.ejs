@@ -1,10 +1,11 @@
+<% layout("/layouts/boilerplate") %>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
   <div class="container-fluid">
 
     <!-- Logo -->
-    <a class="navbar-brand" href="/">
-      <img src="/listings" alt="WanderStay Logo" class="d-inline-block align-text-top" />
+    <a class="navbar-brand" href="/listings">
+      <img src="/logof.png" alt="WanderStay Logo" class="d-inline-block align-text-top" />
     </a>
 
     <!-- Toggler Button -->
@@ -35,7 +36,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/login">Login</a>
-          </li>
+        </li>
         <% } else { %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
