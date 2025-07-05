@@ -117,22 +117,22 @@ function initializeMobileEnhancements() {
     });
     
     // Add loading states for buttons on mobile
-    const buttons = document.querySelectorAll('button[type="submit"]');
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
-                const originalText = this.textContent;
-                this.textContent = 'Loading...';
-                this.disabled = true;
+    // const buttons = document.querySelectorAll('button[type="submit"]');
+    // buttons.forEach(button => {
+    //     button.addEventListener('click', function() {
+    //         if (window.innerWidth <= 768) {
+    //             const originalText = this.textContent;
+    //             this.textContent = 'Loading...';
+    //             this.disabled = true;
                 
-                // Reset after a delay (in case of form validation errors)
-                setTimeout(() => {
-                    this.textContent = originalText;
-                    this.disabled = false;
-                }, 3000);
-            }
-        });
-    });
+    //             // Reset after a delay (in case of form validation errors)
+    //             setTimeout(() => {
+    //                 this.textContent = originalText;
+    //                 this.disabled = false;
+    //             }, 3000);
+    //         }
+    //     });
+    // });
     
     // Improve search functionality on mobile
     const searchForm = document.querySelector('form[action="/listings"]');
