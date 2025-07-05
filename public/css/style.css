@@ -56,7 +56,6 @@ body {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23222222' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0,0,0,0.7)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/* Dark mode: toggle icon */
 body.dark-mode .navbar-toggler-icon {
     filter: invert(1);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23f5f5f5' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.7)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
@@ -90,23 +89,6 @@ body.dark-mode {
     color: #f5f5f5;
 }
 
-/* ✅ FIX: Make sure all typical text is white in dark mode */
-body.dark-mode h1,
-body.dark-mode h2,
-body.dark-mode h3,
-body.dark-mode h4,
-body.dark-mode h5,
-body.dark-mode h6,
-body.dark-mode p,
-body.dark-mode span,
-body.dark-mode .card-text,
-body.dark-mode .f-info,
-body.dark-mode .f-info a,
-body.dark-mode .nav-link,
-body.dark-mode .dropdown-item {
-    color: #f5f5f5 !important;
-}
-
 body.dark-mode .navbar {
     background-color: #1e1e1e !important;
 }
@@ -116,6 +98,10 @@ body.dark-mode .dropdown-menu {
     border-color: #444;
 }
 
+body.dark-mode .dropdown-item {
+    color: #f5f5f5;
+}
+
 body.dark-mode .dropdown-item:hover {
     background-color: #3a3a3a !important;
     color: #fff;
@@ -123,6 +109,42 @@ body.dark-mode .dropdown-item:hover {
 
 body.dark-mode .navbar-brand img {
     filter: brightness(0.8);
+}
+
+/* 🛠 Fixes for your issue */
+body.dark-mode .card {
+    background-color: #1e1e1e !important;
+    color: #f5f5f5 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-mode .card-body,
+body.dark-mode .card-title,
+body.dark-mode .card-text {
+    color: #f5f5f5 !important;
+}
+
+body.dark-mode .f-info {
+    background-color: #1a1a1a !important;
+    color: #cccccc !important;
+}
+
+body.dark-mode .f-info a {
+    color: #cccccc !important;
+}
+
+body.dark-mode .f-info a:hover {
+    color: #ffffff !important;
+}
+
+body.dark-mode #darkToggle {
+    border-color: #ccc;
+    color: #f5f5f5;
+    background-color: #2a2a2a;
+}
+
+body.dark-mode #darkToggle:hover {
+    background-color: #3a3a3a;
 }
 
 /* ========== Footer ========== */
